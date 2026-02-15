@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "css-doodle": "^0.50.2",
+    "p5": "^2.2.1",
     "vue": "^3.5.25"
   },
   "devDependencies": {
