@@ -1,7 +1,20 @@
 import { createApp } from 'vue'
-import './style.css'
+import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
+import { Home, TestDoodle, TestP5 } from './pages'
+import './style.css'
 import 'css-doodle'
 
-createApp(App).mount('#app')
-console.log('Hello World')
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    { path: '/', component: Home },
+    { path: '/testp5', component: TestP5 },
+    { path: '/testdoodle', component: TestDoodle },
+  ],
+})
+
+const app = createApp(App)
+
+app.use(router)
+app.mount('#app')

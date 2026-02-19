@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, toRefs, watch } from 'vue'
 import p5 from 'p5'
+import { onBeforeUnmount, onMounted, ref, toRefs, watch } from 'vue'
 
 // Define props directly using `defineProps`
 const props = defineProps({
@@ -23,17 +23,20 @@ const canvasContainer = ref<HTMLElement | null>(null) // Reference to the contai
 let myp5: p5 | null = null // Variable to store the p5 instance
 
 // Function to dynamically import the sketch file
-const loadSketch = async () => {
+async function loadSketch() {
   try {
     const module = await import(/* @vite-ignore */ props.src) // Dynamically import the sketch
     const sketch = module.default // Default export is the sketch function
 
     if (typeof sketch === 'function' && canvasContainer.value) {
+      // eslint-disable-next-line new-cap
       myp5 = new p5((p: p5) => sketch(p, props.width, props.height), canvasContainer.value) // Create p5 instance with the sketch
-    } else {
+    }
+    else {
       console.error('No valid sketch function found in the imported module.')
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error(`Failed to load sketch module: ${props.src}`, error)
   }
 }
@@ -59,7 +62,7 @@ onBeforeUnmount(() => {
 
 <template>
   {{ width }} {{ height }}
-  <div ref="canvasContainer" class="container" :style="{ width: width + 'px', height: height + 'px' }"></div>
+  <div ref="canvasContainer" class="container" :style="{ width: `${width}px`, height: `${height}px` }" />
   <!-- This is where the p5 sketch will be rendered -->
 </template>
 

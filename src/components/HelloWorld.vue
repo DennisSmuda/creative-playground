@@ -1,11 +1,10 @@
 <script setup lang="ts">
 // import { ref } from 'vue';
-import Test from './Test.vue';
+import Test from './Test.vue'
 </script>
 
 <template>
-  <css-doodle grid="5" id="doodle">
-
+  <css-doodle id="doodle" grid="5">
     <Test />
   </css-doodle>
 </template>

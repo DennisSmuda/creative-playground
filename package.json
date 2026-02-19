@@ -1,22 +1,27 @@
 {
   "name": "p5-playground",
-  "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "css-doodle": "^0.50.2",
     "p5": "^2.2.1",
-    "vue": "^3.5.25"
+    "vue": "^3.5.25",
+    "vue-router": "^5.0.2"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^7.4.3",
     "@types/node": "^24.10.1",
     "@vitejs/plugin-vue": "^6.0.2",
     "@vue/tsconfig": "^0.8.1",
+    "eslint": "^9.39.2",
     "typescript": "~5.9.3",
     "vite": "^8.0.0-beta.13",
     "vue-tsc": "^3.1.5"
