@@ -24,7 +24,7 @@ watch(
 <template>
   <div ref="p5ComponentContainer" class="p5-component-container">
     <P5Wrapper
-      src="../sketches/WavingCircles.ts"
+      src="../sketches/RandomWalks.ts"
       :width="containerWidth"
       :height="containerHeight"
     />
