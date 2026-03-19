@@ -1,4 +1,5 @@
 import p5 from 'p5'
+import sketch from './sketch'
 
 const Vector = p5.Vector
 
@@ -13,16 +14,14 @@ export class BasicMover {
   width: number
   height: number
 
-  constructor(sk: p5, x: number, y: number) {
+  constructor(sk: p5, width: number, height: number) {
     this.sk = sk
-    this.location = sk.createVector(x, y)
+    this.location = sk.createVector(width / 2, height / 2)
     this.accelleration = sk.createVector(0, 0)
     this.velocity = sk.createVector(0, 0)
     this.color = sk.color(255, 0, 0)
     this.mass = sk.random(4, 16)
     this.maxSpeed = this.mass
-
-    const { innerWidth: width, innerHeight: height } = window
     this.width = width
     this.height = height
   }
@@ -30,6 +29,15 @@ export class BasicMover {
   applyForce(force: p5.Vector) {
     const f = Vector.div(force, this.mass)
     this.accelleration.add(f)
+  }
+
+  update() {
+    const gravity = this.sk.createVector(0, 0.1)
+    this.applyForce(gravity)
+    this.velocity.add(this.accelleration)
+    this.location.add(this.velocity)
+    this.accelleration.mult(0)
+    this.bounceEdges()
   }
 
   draw() {
@@ -71,23 +79,4 @@ export class BasicMover {
   }
 }
 
-/** Sketch function expected by P5Wrapper: (p, width, height) => void */
-export default function sketch(p: p5, width: number, height: number) {
-  let mover: BasicMover
-
-  p.setup = () => {
-    p.createCanvas(width, height)
-    mover = new BasicMover(p, width / 2, height / 2)
-  }
-
-  p.draw = () => {
-    p.background(220)
-    const gravity = p.createVector(0, 0.1)
-    mover.applyForce(gravity)
-    mover.velocity.add(mover.accelleration)
-    mover.location.add(mover.velocity)
-    mover.accelleration.mult(0)
-    mover.bounceEdges()
-    mover.draw()
-  }
-}
+export default sketch(BasicMover)

@@ -1,14 +1,13 @@
 import p5 from 'p5'
-import { BasicMover } from './BasicMover.ts'
+import { BasicMover } from './BasicMover'
+import sketch from './sketch'
 
-/**
 /**
  * MouseMover Class
  */
 export class MouseMover extends BasicMover {
   mouse: p5.Vector
   dir: p5.Vector
-  location: p5.Vector
 
   constructor(sk: p5, width: number, height: number) {
     super(sk, width, height)
@@ -29,13 +28,4 @@ export class MouseMover extends BasicMover {
   }
 }
 
-export default function sketch(p: p5, width: number, height: number) {
-  // let mover: MouseMover
-  const mover = new MouseMover(p, width, height)
-  p.setup = () => {
-    p.createCanvas(width, height)
-  }
-  p.draw = () => {
-    mover.update()
-  }
-}
+export default sketch(MouseMover)
