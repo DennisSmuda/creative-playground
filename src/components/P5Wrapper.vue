@@ -61,7 +61,6 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  {{ width }} {{ height }}
   <div ref="canvasContainer" class="container" :style="{ width: `${width}px`, height: `${height}px` }" />
   <!-- This is where the p5 sketch will be rendered -->
 </template>

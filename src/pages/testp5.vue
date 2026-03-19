@@ -24,7 +24,7 @@ watch(
 <template>
   <div ref="p5ComponentContainer" class="p5-component-container">
     <P5Wrapper
-      src="../sketches/MouseMover.ts"
+      src="../sketches/WavingCircles.ts"
       :width="containerWidth"
       :height="containerHeight"
     />
@@ -41,10 +41,6 @@ watch(
   height: 100%;
   aspect-ratio: 16/9;
   column-gap: 0;
-  border-radius: 16px;
-  border-color: aqua;
-  border-style: solid;
-  border-width: 8px;
   overflow: hidden;
 }
 </style>

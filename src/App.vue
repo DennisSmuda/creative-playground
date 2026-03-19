@@ -12,3 +12,10 @@
   </nav>
   <RouterView />
 </template>
+
+<style scoped>
+nav {
+  display: flex;
+  gap: 16px;
+}
+</style>
