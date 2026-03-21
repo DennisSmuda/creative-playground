@@ -4,7 +4,10 @@
       Home
     </RouterLink>
     <RouterLink to="/testp5">
-      Test P5
+      Test p5
+    </RouterLink>
+    <RouterLink to="/waving-circles">
+      Waving Circles
     </RouterLink>
     <RouterLink to="/testdoodle">
       Test Doodle
