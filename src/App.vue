@@ -9,6 +9,9 @@
     <RouterLink to="/waving-circles">
       Waving Circles
     </RouterLink>
+    <RouterLink to="/scaling-circles">
+      Scaling Circles
+    </RouterLink>
     <RouterLink to="/testdoodle">
       Test Doodle
     </RouterLink>
