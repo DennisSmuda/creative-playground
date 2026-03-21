@@ -1,26 +1,33 @@
 <script setup lang="ts">
 import p5 from 'p5'
-import { onBeforeUnmount, onMounted, ref, toRefs, watch } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
-// Define props directly using `defineProps`
 const props = defineProps({
   src: {
     type: String,
     required: true, // The path to the p5 sketch file is required
   },
-  width: {
-    type: Number,
-    required: true, // Width for the canvas
-  },
-  height: {
-    type: Number,
-    required: true, // Height for the canvas
-  },
 })
 
-const { width, height } = toRefs(props) // Destructure props to access width and height
-const canvasContainer = ref<HTMLElement | null>(null) // Reference to the container where the canvas will be rendered
 let myp5: p5 | null = null // Variable to store the p5 instance
+const canvasContainer = ref<HTMLElement | null>(null) // Reference to the container where the canvas will be rendered
+const p5ComponentContainer = ref<HTMLElement | null>(null)
+const containerWidth = ref(0)
+const containerHeight = ref(0)
+
+onMounted(() => {
+  containerWidth.value = p5ComponentContainer.value?.offsetWidth || 0
+  containerHeight.value = p5ComponentContainer.value?.offsetHeight || 0
+})
+
+// Watch for container size changes and update width/height dynamically
+watch(
+  [() => p5ComponentContainer.value?.offsetWidth, () => p5ComponentContainer.value?.offsetHeight],
+  () => {
+    containerWidth.value = p5ComponentContainer.value?.offsetWidth || 0
+    containerHeight.value = p5ComponentContainer.value?.offsetHeight || 0
+  },
+)
 
 // Function to dynamically import the sketch file
 async function loadSketch() {
@@ -30,7 +37,7 @@ async function loadSketch() {
 
     if (typeof sketch === 'function' && canvasContainer.value) {
       // eslint-disable-next-line new-cap
-      myp5 = new p5((p: p5) => sketch(p, props.width, props.height), canvasContainer.value) // Create p5 instance with the sketch
+      myp5 = new p5((p: p5) => sketch(p, containerWidth.value, containerHeight.value), canvasContainer.value) // Create p5 instance with the sketch
     }
     else {
       console.error('No valid sketch function found in the imported module.')
@@ -40,13 +47,6 @@ async function loadSketch() {
     console.error(`Failed to load sketch module: ${props.src}`, error)
   }
 }
-
-// Resize the canvas whenever the props change
-watch([width, height], () => {
-  if (myp5) {
-    myp5.resizeCanvas(width.value, height.value) // Resize the canvas based on new width and height props
-  }
-})
 
 onMounted(() => {
   loadSketch() // Load the sketch when the component is mounted
@@ -61,9 +61,28 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="canvasContainer" class="container" :style="{ width: `${width}px`, height: `${height}px` }" />
-  <!-- This is where the p5 sketch will be rendered -->
+  <div ref="p5ComponentContainer" class="p5-component-container">
+    <div
+      ref="canvasContainer"
+      class="container"
+      :style="{
+        width: `${containerWidth}px`,
+        height: `${containerHeight}px`,
+      }"
+    />
+  </div>
 </template>
 
 <style scoped>
+.p5-component-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16/9;
+  column-gap: 0;
+  overflow: hidden;
+}
 </style>
