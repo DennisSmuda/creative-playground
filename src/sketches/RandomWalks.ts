@@ -1,6 +1,6 @@
 import type p5 from 'p5'
-import Walker from '../objects/Walker'
-import { flashBackground } from '../utils/colors'
+import Walker from './objects/Walker'
+import { flashBackground } from './utils/colors'
 
 export default function sketch(p: p5, width: number, height: number) {
   const objects: Walker[] = []

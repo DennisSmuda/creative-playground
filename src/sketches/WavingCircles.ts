@@ -1,6 +1,6 @@
 import type p5 from 'p5'
-import Circle from '../objects/MouseScaleCircle'
-import { flashBackground } from '../utils/colors'
+import Circle from './objects/MouseScaleCircle'
+import { flashBackground } from './utils/colors'
 
 export default function sketch(p: p5, width: number, height: number) {
   const circles: Circle[] = []
