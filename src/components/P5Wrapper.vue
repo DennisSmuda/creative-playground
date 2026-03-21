@@ -3,14 +3,14 @@ import p5 from 'p5'
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 const props = defineProps({
-  src: {
-    type: String,
-    required: true, // The path to the p5 sketch file is required
+  sketch: {
+    type: Function,
+    required: true,
   },
 })
 
-let myp5: p5 | null = null // Variable to store the p5 instance
-const canvasContainer = ref<HTMLElement | null>(null) // Reference to the container where the canvas will be rendered
+let myp5: p5 | null = null
+const canvasContainer = ref<HTMLElement | null>(null)
 const p5ComponentContainer = ref<HTMLElement | null>(null)
 const containerWidth = ref(0)
 const containerHeight = ref(0)
@@ -29,27 +29,11 @@ watch(
   },
 )
 
-// Function to dynamically import the sketch file
-async function loadSketch() {
-  try {
-    const module = await import(/* @vite-ignore */ props.src) // Dynamically import the sketch
-    const sketch = module.default // Default export is the sketch function
-
-    if (typeof sketch === 'function' && canvasContainer.value) {
-      // eslint-disable-next-line new-cap
-      myp5 = new p5((p: p5) => sketch(p, containerWidth.value, containerHeight.value), canvasContainer.value) // Create p5 instance with the sketch
-    }
-    else {
-      console.error('No valid sketch function found in the imported module.')
-    }
-  }
-  catch (error) {
-    console.error(`Failed to load sketch module: ${props.src}`, error)
-  }
-}
-
 onMounted(() => {
-  loadSketch() // Load the sketch when the component is mounted
+  if (typeof props.sketch === 'function' && canvasContainer.value) {
+    // eslint-disable-next-line new-cap
+    myp5 = new p5((p: p5) => props.sketch(p, containerWidth.value, containerHeight.value), canvasContainer.value)
+  }
 })
 
 onBeforeUnmount(() => {
