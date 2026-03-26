@@ -1,31 +1,30 @@
-import p5 from 'p5'
-import { BasicMover } from './BasicMover'
-import sketch from './sketch'
+import MouseMover from './objects/MouseMover'
+import { flashBackground } from './utils/colors'
 
-/**
- * MouseMover Class
- */
-export class MouseMover extends BasicMover {
-  mouse: p5.Vector
-  dir: p5.Vector
+function moverSketch(sk: any, width: number, height: number) {
+  const objects: MouseMover[] = []
 
-  constructor(sk: p5, width: number, height: number) {
-    super(sk, width, height)
-    this.mouse = sk.createVector(0, 0)
-    this.dir = sk.createVector(0, 0)
-    this.location = sk.createVector(0, 0)
+  sk.setup = () => {
+    sk.createCanvas(width, height)
+    flashBackground(sk)
+
+    objects.push(new MouseMover(sk, width / 3, height / 2))
+    objects.push(new MouseMover(sk, width / 2, height / 2))
+    objects.push(new MouseMover(sk, width / 2, height / 4))
+    objects.push(new MouseMover(sk, width / 2, height / 3))
+    objects.push(new MouseMover(sk, width / 2, height / 3))
+    objects.push(new MouseMover(sk, width, height))
+    objects.push(new MouseMover(sk, width - width / 4, height / 3))
   }
 
-  update() {
-    this.mouse = this.sk.createVector(this.sk.mouseX, this.sk.mouseY)
-    this.dir = p5.Vector.sub(this.mouse, this.location)
-    this.dir.normalize()
-    this.dir.mult(0.5)
-    this.accelleration = this.dir
-    this.velocity.add(this.accelleration).limit(this.maxSpeed)
-    this.location.add(this.velocity)
-    this.wrapAroundScreen()
+  sk.draw = () => {
+    flashBackground(sk)
+
+    objects.forEach((obj) => {
+      obj.update()
+      obj.draw()
+    })
   }
 }
 
-export default sketch(MouseMover)
+export default moverSketch
