@@ -12,9 +12,9 @@
     <RouterLink to="/mouse-balls">
       Mouse Balls
     </RouterLink>
-    <RouterLink to="/testdoodle">
+    <!-- <RouterLink to="/testdoodle">
       Test Doodle
-    </RouterLink>
+    </RouterLink> -->
   </nav>
   <RouterView />
 </template>
