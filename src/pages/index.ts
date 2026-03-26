@@ -1,0 +1,5 @@
+export { default as Home } from './index.vue'
+export { default as MouseBalls } from './mouse-balls.vue'
+export { default as ScalingCircles } from './scaling-circles.vue'
+export { default as TestDoodle } from './testdoodle.vue'
+export { default as WavingCircles } from './waving-circles.vue'
