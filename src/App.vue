@@ -3,14 +3,14 @@
     <RouterLink to="/">
       Home
     </RouterLink>
-    <RouterLink to="/testp5">
-      Test p5
-    </RouterLink>
     <RouterLink to="/waving-circles">
       Waving Circles
     </RouterLink>
     <RouterLink to="/scaling-circles">
       Scaling Circles
+    </RouterLink>
+    <RouterLink to="/mouse-balls">
+      Mouse Balls
     </RouterLink>
     <RouterLink to="/testdoodle">
       Test Doodle
