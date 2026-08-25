@@ -24,10 +24,10 @@
     "@types/node": "^26.2.0",
     "@vitejs/plugin-vue": "^6.0.8",
     "@vue/tsconfig": "^0.9.1",
-    "eslint": "^10.8.1",
+    "eslint": "^10.9.0",
     "typescript": "~5.9.3",
-    "vite": "^8.2.1",
-    "vue-tsc": "^3.3.10"
+    "vite": "^8.2.2",
+    "vue-tsc": "^3.3.11"
   },
   "overrides": {
     "sharp": "^0.35.3"
